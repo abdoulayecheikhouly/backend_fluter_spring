@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ArticleServiceImp implements ArticleService {
@@ -22,14 +23,18 @@ public class ArticleServiceImp implements ArticleService {
 
 
     @Override
-    public Article createArticle(ArticleRequester articleRequester) {
+    public Map<String,Object> createArticle(ArticleRequester articleRequester) {
         // Sauvegarder l'article
         String imageUrl = fileStorageService.storeFile(articleRequester.getImage());
         Article article=new Article(articleRequester.getName(),imageUrl,articleRequester.getDate(),articleRequester.getCategory());
         // Enregistrer l' articile
 
         Article savedArticle = articleRepository.save(article);
-        return  savedArticle;
+        if(savedArticle == null){
+            return new MapResponse().withSuccess(false).withMessage("L'enregistement a echoué").response();
+        }else{
+            return new MapResponse().withSuccess(true).withMessage("Enregistrement reussit").withObject(savedArticle).response();
+        }
     }
 
     @Override
