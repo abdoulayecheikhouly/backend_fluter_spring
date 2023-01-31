@@ -29,7 +29,6 @@ public class ArticleServiceImp implements ArticleService {
         // Enregistrer l' articile
 
         Article savedArticle = articleRepository.save(article);
-        savedArticle.setImage(fileStorageService.loadFileAsResource(article.getImageUrl()));
         return  savedArticle;
     }
 

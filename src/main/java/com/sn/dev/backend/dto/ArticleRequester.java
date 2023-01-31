@@ -11,8 +11,8 @@ import java.util.Date;
 public class ArticleRequester {
 
 
-    private String name;
 
+    private String name;
     private Date date;
     private Category category;
     private Boolean available;
