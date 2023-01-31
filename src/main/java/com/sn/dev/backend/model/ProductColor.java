@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,7 +23,8 @@ public class ProductColor {
 
     private Long id;
     private  String name;
-
+    @OneToMany(mappedBy = "productColor")
+    private List<Stock> stocks;
 
     public void setId(Long id) {
         this.id = id;
