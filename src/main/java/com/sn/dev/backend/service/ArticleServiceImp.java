@@ -1,5 +1,6 @@
 package com.sn.dev.backend.service;
 
+import com.sn.dev.backend.dto.ArticleRequester;
 import com.sn.dev.backend.exception.ArticleNotFoundException;
 import com.sn.dev.backend.model.Article;
 import com.sn.dev.backend.repository.ArticleRepository;
@@ -21,13 +22,15 @@ public class ArticleServiceImp implements ArticleService {
 
 
     @Override
-    public Article createArticle(Article article, MultipartFile image) {
+    public Article createArticle(ArticleRequester articleRequester) {
         // Sauvegarder l'article
-        String imageUrl = fileStorageService.storeFile(image);
-        article.setImageUrl(imageUrl);
+        String imageUrl = fileStorageService.storeFile(articleRequester.getImage());
+        Article article=new Article(articleRequester.getName(),imageUrl,articleRequester.getDate(),articleRequester.getCategory());
+        // Enregistrer l' articile
 
-        // Enregistrer l' article
-        return articleRepository.save(article);
+        Article savedArticle = articleRepository.save(article);
+        savedArticle.setImage(fileStorageService.loadFileAsResource(article.getImageUrl()));
+        return  savedArticle;
     }
 
     @Override
@@ -41,16 +44,12 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public Article updateArticle(Long id, Article updatedArticle, MultipartFile image) {
-        Article article = articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Product not found"));
+    public Article updateArticle( Article updatedArticle) {
+        Article article = articleRepository.findById(updatedArticle.getId()).orElseThrow(() -> new ArticleNotFoundException("Product not found"));
         article.setName(updatedArticle.getName());
         article.setCategory(updatedArticle.getCategory());
 
         // Si une nouvelle image est téléchargée, stocker la nouvelle image
-        if (image != null) {
-            String imageUrl = fileStorageService.storeFile(image);
-            article.setImageUrl(imageUrl);
-        }
 
         return articleRepository.save(article);
     }

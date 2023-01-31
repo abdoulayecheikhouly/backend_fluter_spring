@@ -4,6 +4,7 @@ package com.sn.dev.backend.service;
 import com.sn.dev.backend.config.AppConfig;
 import com.sn.dev.backend.exception.FileStorageException;
 import com.sn.dev.backend.exception.MyFileNotFoundException;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class FileStorageService {
             throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
         }
     }
-    public String storeFile(MultipartFile file) {
+    public String storeFile(@NotNull MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
