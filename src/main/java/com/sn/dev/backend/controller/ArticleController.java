@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/article")
@@ -27,9 +28,9 @@ public class ArticleController {
     private FileStorageService storageService;
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<Article> createProduct(@ModelAttribute ArticleRequester articleRequester) {
-        Article createdProduct = articleService.createArticle(articleRequester);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+    public ResponseEntity<Map<String,Object>> createProduct(@ModelAttribute ArticleRequester articleRequester) {
+        Map<String,Object> map = articleService.createArticle(articleRequester);
+        return ResponseEntity.status(HttpStatus.CREATED).body(map);
     }
 
     @GetMapping
