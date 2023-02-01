@@ -47,9 +47,8 @@ public class ArticleServiceImp implements ArticleService {
             return new MapResponse().withSuccess(false).withMessage("La liste des article est vide").response();
         }
         else
+        {return new MapResponse().withSuccess(true).withMessage(articles.size()+" Enregistrements trouvés").withArrayObject(articles).response();}
 
-
-        return (Map<String, Object>) articles;
     }
 
     @Override

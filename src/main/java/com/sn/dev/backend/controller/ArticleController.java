@@ -4,7 +4,6 @@ package com.sn.dev.backend.controller;
 import com.sn.dev.backend.dto.ArticleRequester;
 import com.sn.dev.backend.model.Article;
 import com.sn.dev.backend.service.ArticleService;
-import com.sn.dev.backend.service.ArticleServiceImp;
 import com.sn.dev.backend.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -12,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,7 +31,8 @@ public class ArticleController {
     }
 
     @GetMapping
-    public List<Article> getAllProducts() {
+    public Map<String, Object> getAllProducts() {
+
         return articleService.getAllArticle();
     }
     @GetMapping("/image/{fileName}")
