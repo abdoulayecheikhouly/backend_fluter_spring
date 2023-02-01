@@ -5,8 +5,8 @@ import com.sn.dev.backend.exception.ArticleNotFoundException;
 import com.sn.dev.backend.model.Article;
 import com.sn.dev.backend.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,8 +38,18 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public List<Article> getAllArticle() {
-        return articleRepository.findAll();
+    public Map<String, Object> getAllArticle() {
+
+        List<Article> articles=articleRepository.findAll();
+
+
+        if (articles.size()==0){
+            return new MapResponse().withSuccess(false).withMessage("La liste des article est vide").response();
+        }
+        else
+
+
+        return (Map<String, Object>) articles;
     }
 
     @Override
