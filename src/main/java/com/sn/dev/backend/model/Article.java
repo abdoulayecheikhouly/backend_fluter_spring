@@ -81,8 +81,7 @@ public class Article {
     public Date getDate() {
         return date;
     }
-
-    public Category getCategory() {
+ public Category getCategory() {
         return category;
     }
 

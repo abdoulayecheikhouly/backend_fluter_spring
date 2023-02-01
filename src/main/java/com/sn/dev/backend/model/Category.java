@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
-@Data
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,6 +30,16 @@ public class Category {
     @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Article> articles;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
 
 }

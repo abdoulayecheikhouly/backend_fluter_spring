@@ -41,12 +41,12 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public Article getProductById(@PathVariable Long id) {
+    public Map<String, Object>  getProductById(@PathVariable Long id) {
         return articleService.getArticleById(id);
     }
 
     @PutMapping("/{id}")
-    public Article updateProduct( @RequestBody Article updatedArticle) {
+    public Map<String, Object> updateProduct( @RequestBody Article updatedArticle) {
         return articleService.updateArticle( updatedArticle);
     }
     @DeleteMapping("/{id}")

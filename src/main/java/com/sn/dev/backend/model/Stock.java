@@ -39,7 +39,7 @@ public class Stock {
         this.quantity = quantity;
     }
 
-    public Article getArticle() {
+   public Article getArticle() {
         return article;
     }
 
@@ -68,9 +68,7 @@ public class Stock {
     private ProductColor productColor;
 
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     public Long getId() {
         return id;

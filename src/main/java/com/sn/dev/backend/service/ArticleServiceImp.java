@@ -52,25 +52,38 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public Article getArticleById(Long id) {
-        return  articleRepository.findById(id).orElseThrow(() -> new ArticleNotFoundException("Article not found"));
+    public  Map<String,Object>  getArticleById(Long id) {
+        Article article=articleRepository.findById(id).get();
+        if(article.getId().intValue() == 0 && article.getId() ==null)
+        {
+            return new MapResponse().withSuccess(false).withMessage("id non trouvé").response();
+        }else
+            //return (Map<String, Object>) article;
+            return  new MapResponse().withSuccess(true).withMessage("Nom "+ article.getName()+" "+ "ImageUrl :"+ article.getImageUrl()+" " + "Category : "+ article.getCategory() +" "+ "Available : "+ article.getAvailable()+"      "+"Article "+article.getId()).response();
     }
 
     @Override
-    public Article updateArticle( Article updatedArticle) {
-        Article article = articleRepository.findById(updatedArticle.getId()).orElseThrow(() -> new ArticleNotFoundException("Product not found"));
+    public Map<String,Object> updateArticle(Article updatedArticle) {
+        Article article = articleRepository.findById(updatedArticle.getId()).get();
+        if (article==null){
+            return new MapResponse().withSuccess(false).withMessage("Article non trouvé").response();
+        }else{
         article.setName(updatedArticle.getName());
-        article.setCategory(updatedArticle.getCategory());
+        //article.setCategory(updatedArticle.getCategory());
+        articleRepository.save(article);
 
-        // Si une nouvelle image est téléchargée, stocker la nouvelle image
-
-        return articleRepository.save(article);
+        return new MapResponse().withSuccess(true).withMessage("le produit dont l'ID est : "+""+updatedArticle.getId()+"  a été modifié avec succes").response();
     }
+        }
 
     @Override
     public void deleteArticle(Long id) {
-
+        Article article=articleRepository.findById(id).get();
+        if(article==null){
+             new MapResponse().withSuccess(false).withMessage("Impossible de trouver l'article").response();
+        }
         articleRepository.deleteById(id);
+        new MapResponse().withSuccess(true).withMessage("Article supprimer avec succés").response();
 
     }
 }
