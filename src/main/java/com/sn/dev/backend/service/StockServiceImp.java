@@ -4,37 +4,80 @@ import com.sn.dev.backend.model.ProductSize;
 import com.sn.dev.backend.model.Stock;
 import com.sn.dev.backend.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Map;
+@Service
 public class StockServiceImp implements StockService{
 
     @Autowired
     private StockRepository stockRepository;
     @Override
-    public Stock saveStock(Stock stock) {
-        return stockRepository.save(stock);
+    public Map<String,Object> saveStock(Stock stock) {
+        Stock s =stockRepository.save(stock);
+        if(s==null){
+            return new MapResponse().withSuccess(false).withMessage("Stock non sauvegardé").response();
+        }
+        else return new MapResponse().withSuccess(true).withMessage("Stock savegaedé avec succes").response();
     }
 
     @Override
-    public Stock updapeStock(Stock stock) {
-        return stockRepository.save(stock);
+    public Map<String, Object> saveStockAll(List<Stock> stocks) {
+        List<Stock> stock=stockRepository.saveAll( stocks);
+        if(stock==null){
+            return new MapResponse().withSuccess(false).withMessage("Stocks non sauvegardé").response();
+        }
+        else
+            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").response();
+    }
+
+
+    @Override
+    public  Map<String,Object>  updapeStock(Stock stock) {
+        Stock s= stockRepository.findById(stock.getId()).get();
+
+        if (s.getId()==0 && s==null){
+            return new MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
+
+        }else s.setQuantity(s.getQuantity());
+        stockRepository.save(stock);
+        return new  MapResponse().withSuccess(true).withMessage("Stock updated").response();
     }
 
     @Override
     public void deletedStockId(Long id) {
+        Stock stock= stockRepository.findById(id).get();
+        if (stock==null && stock.getId()==0){
 
+            new  MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
+
+        }
         stockRepository.deleteById(id);
 
+        new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
+
     }
 
     @Override
-    public List<Stock> gellAllStock(Stock stock) {
-        return stockRepository.findAll();
+    public  Map<String,Object> gellAllStock() {
+       List <Stock> stock1= stockRepository.findAll();
+
+       if (stock1.size()==0){
+           return new MapResponse().withSuccess(false).withMessage(" Aucun stock disponible").response();
+       }else
+           return new MapResponse().withSuccess(true).withMessage(stock1.size()+" stock disponible").response();
     }
 
     @Override
-    public Stock getStockById(Long id) {
-        return stockRepository.findById(id).get();
+    public Map<String,Object> getStockById(Long id) {
+       Stock stock =stockRepository.findById(id).get();
+       if(stock.getId()==0 && stock==null){
+
+           return new MapResponse().withSuccess(false).withMessage(" Aucun stock ne correspond à cet ID").response();
+
+       }else
+        //   return (Map<String, Object>) stock;
+       return new MapResponse().withSuccess(false).withMessage(" Stock trouvé").response();
     }
 }

@@ -79,7 +79,7 @@ public class ArticleServiceImp implements ArticleService {
     @Override
     public void deleteArticle(Long id) {
         Article article=articleRepository.findById(id).get();
-        if(article==null){
+        if(article==null && article.getId()==0){
              new MapResponse().withSuccess(false).withMessage("Impossible de trouver l'article").response();
         }
         articleRepository.deleteById(id);

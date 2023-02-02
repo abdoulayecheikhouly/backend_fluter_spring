@@ -4,13 +4,15 @@ import com.sn.dev.backend.model.ProductSize;
 import com.sn.dev.backend.model.Stock;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StockService {
 
-    Stock saveStock(Stock stock);
-    Stock updapeStock(Stock stock);
+    Map<String,Object> saveStock(Stock stock);
+    Map<String,Object> saveStockAll(List<Stock> stocks);
+    Map<String,Object>  updapeStock(Stock stock);
     void deletedStockId(Long id);
-    List<Stock> gellAllStock(Stock stock);
-    Stock getStockById(Long id);
+    Map<String,Object> gellAllStock();
+    Map<String,Object>  getStockById(Long id);
 
 }
