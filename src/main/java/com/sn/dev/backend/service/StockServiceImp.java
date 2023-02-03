@@ -48,16 +48,16 @@ public class StockServiceImp implements StockService{
     }
 
     @Override
-    public void deletedStockId(Long id) {
+    public Map<String,Object> deletedStockId(Long id) {
         Optional<Stock> stock= stockRepository.findById(id);
         if (stock.isEmpty()){
 
-            new  MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
+            return new  MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
 
         }else{
         stockRepository.deleteById(id);
 
-        new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
+        return new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
         }
 
     }
@@ -74,13 +74,14 @@ public class StockServiceImp implements StockService{
 
     @Override
     public Map<String,Object> getStockById(Long id) {
-       Stock stock =stockRepository.findById(id).get();
-       if(stock.getId()==0 && stock==null){
+        Optional<Stock> stock= stockRepository.findById(id);
+
+       if(stock.isEmpty()){
 
            return new MapResponse().withSuccess(false).withMessage(" Aucun stock ne correspond à cet ID").response();
 
        }else
-        //   return (Map<String, Object>) stock;
-       return new MapResponse().withSuccess(false).withMessage(" Stock trouvé").response();
+
+       return new MapResponse().withSuccess(false).withMessage(" Stock trouvé").withArrayObject(stock).response();
     }
 }

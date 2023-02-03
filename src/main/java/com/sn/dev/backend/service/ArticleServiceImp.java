@@ -3,12 +3,14 @@ package com.sn.dev.backend.service;
 import com.sn.dev.backend.dto.ArticleRequester;
 import com.sn.dev.backend.exception.ArticleNotFoundException;
 import com.sn.dev.backend.model.Article;
+import com.sn.dev.backend.model.Stock;
 import com.sn.dev.backend.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImp implements ArticleService {
@@ -53,37 +55,38 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public  Map<String,Object>  getArticleById(Long id) {
-        Article article=articleRepository.findById(id).get();
-        if(article.getId().intValue() == 0 && article.getId() ==null)
+
+        Optional<Article> article= articleRepository.findById(id);
+        if(article.isEmpty())
         {
             return new MapResponse().withSuccess(false).withMessage("id non trouvé").response();
         }else
             //return (Map<String, Object>) article;
-            return  new MapResponse().withSuccess(true).withMessage("Nom "+ article.getName()+" "+ "ImageUrl :"+ article.getImageUrl()+" " + "Category : "+ article.getCategory() +" "+ "Available : "+ article.getAvailable()+"      "+"Article "+article.getId()).response();
+            return  new MapResponse().withSuccess(true).withMessage("Article trouvé : ").withArrayObject(article).response();
     }
 
     @Override
     public Map<String,Object> updateArticle(Article updatedArticle) {
-        Article article = articleRepository.findById(updatedArticle.getId()).get();
-        if (article==null){
+        Optional<Article> article= articleRepository.findById(updatedArticle.getId());;
+        if (article.isEmpty()){
             return new MapResponse().withSuccess(false).withMessage("Article non trouvé").response();
         }else{
-        article.setName(updatedArticle.getName());
+        updatedArticle.setName(updatedArticle.getName());
         //article.setCategory(updatedArticle.getCategory());
-        articleRepository.save(article);
+        articleRepository.save(updatedArticle);
 
-        return new MapResponse().withSuccess(true).withMessage("le produit dont l'ID est : "+""+updatedArticle.getId()+"  a été modifié avec succes").response();
-    }
+        return new MapResponse().withSuccess(true).withMessage("le produit dont l'ID est : "+""+updatedArticle.getId()+"  a été modifié avec succes").withArrayObject(updatedArticle).response();
+              }
         }
 
     @Override
-    public void deleteArticle(Long id) {
-        Article article=articleRepository.findById(id).get();
-        if(article==null && article.getId()==0){
-             new MapResponse().withSuccess(false).withMessage("Impossible de trouver l'article").response();
+    public  Map<String,Object>  deleteArticle(Long id) {
+        Optional<Article> article=articleRepository.findById(id);
+        if(article.isEmpty()){
+            return new MapResponse().withSuccess(false).withMessage("Impossible de trouver l'article").response();
+        }else {
+            articleRepository.deleteById(id);
+           return new MapResponse().withSuccess(true).withArrayObject(article).withMessage("Article supprimer avec succés").response();
         }
-        articleRepository.deleteById(id);
-        new MapResponse().withSuccess(true).withMessage("Article supprimer avec succés").response();
-
     }
 }
