@@ -1,14 +1,11 @@
 package com.sn.dev.backend.controller;
 
-
-import com.sn.dev.backend.model.Article;
 import com.sn.dev.backend.model.Category;
 import com.sn.dev.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

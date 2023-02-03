@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 @Service
 public class StockServiceImp implements StockService{
 
@@ -35,38 +36,40 @@ public class StockServiceImp implements StockService{
 
     @Override
     public  Map<String,Object>  updapeStock(Stock stock) {
-        Stock s= stockRepository.findById(stock.getId()).get();
+        Optional<Stock> s= stockRepository.findById(stock.getId());
 
-        if (s.getId()==0 && s==null){
+        if (s.isEmpty()){
             return new MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
 
-        }else s.setQuantity(s.getQuantity());
+        }else{
         stockRepository.save(stock);
         return new  MapResponse().withSuccess(true).withMessage("Stock updated").response();
+        }
     }
 
     @Override
     public void deletedStockId(Long id) {
-        Stock stock= stockRepository.findById(id).get();
-        if (stock==null && stock.getId()==0){
+        Optional<Stock> stock= stockRepository.findById(id);
+        if (stock.isEmpty()){
 
             new  MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
 
-        }
+        }else{
         stockRepository.deleteById(id);
 
         new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
+        }
 
     }
 
     @Override
     public  Map<String,Object> gellAllStock() {
-       List <Stock> stock1= stockRepository.findAll();
+       List <Stock> stocks= stockRepository.findAll();
 
-       if (stock1.size()==0){
+       if (stocks.size()==0){
            return new MapResponse().withSuccess(false).withMessage(" Aucun stock disponible").response();
        }else
-           return new MapResponse().withSuccess(true).withMessage(stock1.size()+" stock disponible").response();
+           return new MapResponse().withSuccess(true).withMessage(stocks.size()+" stock disponible").withArrayObject(stocks).response();
     }
 
     @Override
