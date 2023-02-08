@@ -1,7 +1,7 @@
 package com.sn.dev.backend.model;
 
 
-import org.springframework.data.annotation.Id;
+//import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,13 +10,13 @@ import java.util.Date;
 
 public class Sale {
 
-    @javax.persistence.Id
+    //@javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
     private Date date;
-    private Double prix;
+    private Double price;
     @ManyToOne
     @JoinColumn(name = "stock_id")
     private Stock stock;
@@ -28,10 +28,10 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(int quantity, Date date, Double prix, Stock stock) {
+    public Sale(int quantity, Date date, Double price, Stock stock) {
         this.quantity = quantity;
         this.date = date;
-        this.prix = prix;
+        this.price= price;
         this.stock = stock;
     }
 
@@ -51,12 +51,12 @@ public class Sale {
         this.date = date;
     }
 
-    public Double getPrix() {
-        return prix;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrix(Double prix) {
-        this.prix = prix;
+    public void setPric(Double prix) {
+        this.price= prix;
     }
 
     public Stock getStock() {

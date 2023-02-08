@@ -9,9 +9,9 @@ import java.util.Map;
 public interface SaleService {
 
     Map<String,Object> saveSale(Sale sale);
-    Map<String,Object> saveSale(List<Sale> sales);
-    Map<String,Object>  updapeSale(Sale sale);
-    Map<String,Object> deletedStockId(Long id);
+
+    Map<String,Object>  updateSale(Sale sale);
+    Map<String,Object> deletedSaleId(Long id);
     Map<String,Object> gellAllSale();
     Map<String,Object>  getSaleById(Long id);
 }

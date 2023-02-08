@@ -30,7 +30,7 @@ public class StockServiceImp implements StockService{
             return new MapResponse().withSuccess(false).withMessage("Stocks non sauvegardé").response();
         }
         else
-            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").response();
+            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").withArrayObject(stock).response();
     }
 
 
