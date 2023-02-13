@@ -3,6 +3,7 @@ package com.sn.dev.backend.model;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Stock {
@@ -12,7 +13,8 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
-
+    @OneToMany(mappedBy = "")
+    List<Sale> sale;
     @ManyToOne
     @JoinColumn(name = "article_id")
     private Article article;

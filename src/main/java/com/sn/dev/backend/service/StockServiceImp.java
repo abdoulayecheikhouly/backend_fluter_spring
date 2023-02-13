@@ -30,7 +30,7 @@ public class StockServiceImp implements StockService{
             return new MapResponse().withSuccess(false).withMessage("Stocks non sauvegardé").response();
         }
         else
-            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").response();
+            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").withArrayObject(stock).response();
     }
 
 
@@ -57,7 +57,11 @@ public class StockServiceImp implements StockService{
         }else{
         stockRepository.deleteById(id);
 
+<<<<<<< HEAD
         return new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
+=======
+       return new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
+>>>>>>> release/v1
         }
 
     }
