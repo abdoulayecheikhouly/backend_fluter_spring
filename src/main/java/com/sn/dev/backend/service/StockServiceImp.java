@@ -57,11 +57,7 @@ public class StockServiceImp implements StockService{
         }else{
         stockRepository.deleteById(id);
 
-<<<<<<< HEAD
-        return new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
-=======
        return new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
->>>>>>> release/v1
         }
 
     }

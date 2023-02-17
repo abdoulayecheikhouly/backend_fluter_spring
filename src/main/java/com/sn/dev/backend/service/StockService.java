@@ -11,11 +11,7 @@ public interface StockService {
     Map<String,Object> saveStock(Stock stock);
     Map<String,Object> saveStockAll(List<Stock> stocks);
     Map<String,Object>  updapeStock(Stock stock);
-<<<<<<< HEAD
     Map<String,Object>  deletedStockId(Long id);
-=======
-    Map<String,Object> deletedStockId(Long id);
->>>>>>> release/v1
     Map<String,Object> gellAllStock();
     Map<String,Object>  getStockById(Long id);
 
