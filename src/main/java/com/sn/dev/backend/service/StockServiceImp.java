@@ -30,7 +30,7 @@ public class StockServiceImp implements StockService{
             return new MapResponse().withSuccess(false).withMessage("Stocks non sauvegardé").response();
         }
         else
-            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").response();
+            return new MapResponse().withSuccess(true).withMessage("Stocks savegaedé avec succes").withArrayObject(stock).response();
     }
 
 
@@ -48,16 +48,16 @@ public class StockServiceImp implements StockService{
     }
 
     @Override
-    public void deletedStockId(Long id) {
+    public Map<String,Object> deletedStockId(Long id) {
         Optional<Stock> stock= stockRepository.findById(id);
         if (stock.isEmpty()){
 
-            new  MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
+            return new  MapResponse().withSuccess(false).withMessage("Stock Introuvable").response();
 
         }else{
         stockRepository.deleteById(id);
 
-        new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
+       return new  MapResponse().withSuccess(true).withMessage("Stock supprimé").response();
         }
 
     }
