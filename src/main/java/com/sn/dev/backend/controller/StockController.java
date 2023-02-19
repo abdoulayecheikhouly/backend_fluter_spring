@@ -48,7 +48,6 @@ public class StockController {
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable("id") Long id)
     {
-
         stockService.deletedStockId(id);
     }
 }

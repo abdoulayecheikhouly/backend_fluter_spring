@@ -1,13 +1,10 @@
 package com.sn.dev.backend.model;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 
 @Entity
 public class Stock {
 
-    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
