@@ -16,11 +16,21 @@ public class StockServiceImp implements StockService{
     private StockRepository stockRepository;
     @Override
     public Map<String,Object> saveStock(Stock stock) {
-        Stock s =stockRepository.save(stock);
-        if(s==null){
+        Stock savedStock = new Stock();
+       List<Stock> stocks= stockRepository.findByArticle_id(stock.getId());
+    Optional <Stock>existantStock=stocks.stream().filter(stockItem ->stockItem.getArticle().getId().equals(stock.getArticle().getId())
+            && stockItem.getProductColor().equals(stock.getProductColor())
+            && stockItem.getProductSize().equals(stock.getProductSize()) ).findFirst();
+        if (existantStock.isPresent()){
+            existantStock.get().setQuantity(existantStock.get().getQuantity()+stock.getQuantity());
+            savedStock = stockRepository.save(existantStock.get());
+        }
+        else {
+            savedStock = stockRepository.save(stock);}
+        if(savedStock==null){
             return new MapResponse().withSuccess(false).withMessage("Stock non sauvegardé").response();
         }
-        else return new MapResponse().withSuccess(true).withMessage("Stock savegaedé avec succes").response();
+        else return new MapResponse().withSuccess(true).withObject(savedStock).withMessage("Stock savegaedé avec succes").response();
     }
 
     @Override

@@ -19,6 +19,9 @@ public class Stock {
     @ManyToOne
     @JoinColumn(name = "prodSize_id")
     private ProductSize productSize;
+    @ManyToOne
+    @JoinColumn(name = "prodColor_id")
+    private ProductColor productColor;
 
     public Stock(int quantity, Article article, ProductSize productSize, ProductColor productColor) {
         this.quantity = quantity;
@@ -61,11 +64,6 @@ public class Stock {
     public void setProductColor(ProductColor productColor) {
         this.productColor = productColor;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "prodColor_id")
-    private ProductColor productColor;
-
 
 
 
