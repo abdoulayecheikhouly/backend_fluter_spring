@@ -2,10 +2,8 @@ package com.sn.dev.backend.model;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,7 +24,7 @@ public class Category {
 
     private Long id;
     private  String name;
-    //@JsonIgnore
+    
     @OneToMany(mappedBy = "category")
     private List<Article> articles;
 

@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.util.unit.DataSize;
 
 import javax.servlet.MultipartConfigElement;
@@ -21,8 +20,6 @@ public class BackendApplication  implements CommandLineRunner {
 		factory.setMaxRequestSize(DataSize.ofBytes(12000028));
 		return factory.createMultipartConfig();
 	}
-	@Autowired
-	private RepositoryRestConfiguration repositoryRestConfiguration;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
