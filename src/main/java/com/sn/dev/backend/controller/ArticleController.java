@@ -24,7 +24,7 @@ public class ArticleController {
     @Autowired
     private FileStorageService storageService;
 
-    @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PostMapping
     public ResponseEntity<Map<String,Object>> createProduct(@ModelAttribute ArticleRequester articleRequester) {
         Map<String,Object> map = articleService.createArticle(articleRequester);
         return ResponseEntity.status(HttpStatus.CREATED).body(map);

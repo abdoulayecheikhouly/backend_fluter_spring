@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minidev.json.annotate.JsonIgnore;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.OneToMany;
@@ -21,13 +21,12 @@ import java.util.List;
 @ToString
 public class Category {
 
-    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     private  String name;
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Article> articles;
 
@@ -40,6 +39,12 @@ public class Category {
         this.name = name;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }

@@ -3,7 +3,10 @@ package com.sn.dev.backend.service;
 import com.sn.dev.backend.dto.ArticleRequester;
 import com.sn.dev.backend.exception.ArticleNotFoundException;
 import com.sn.dev.backend.model.Article;
+import com.sn.dev.backend.model.Category;
 import com.sn.dev.backend.repository.ArticleRepository;
+import com.sn.dev.backend.repository.CategoryRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,11 +17,13 @@ import java.util.Map;
 public class ArticleServiceImp implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final CategoryRepository categoryRepository;
     private final FileStorageService fileStorageService;
 
-    public ArticleServiceImp(ArticleRepository articleRepository, FileStorageService fileStorageService) {
+    public ArticleServiceImp(ArticleRepository articleRepository, FileStorageService fileStorageService,CategoryRepository categoryRepository) {
         this.articleRepository = articleRepository;
         this.fileStorageService = fileStorageService;
+        this.categoryRepository = categoryRepository;
     }
 
 
@@ -26,7 +31,8 @@ public class ArticleServiceImp implements ArticleService {
     public Map<String,Object> createArticle(ArticleRequester articleRequester) {
         // Sauvegarder l'article
         String imageUrl = fileStorageService.storeFile(articleRequester.getImage());
-        Article article=new Article(articleRequester.getName(),imageUrl,articleRequester.getDate(),articleRequester.getCategory());
+        Category category = categoryRepository.findById(articleRequester.getCategory_id()).get();
+        Article article= new Article(articleRequester.getName(),imageUrl,articleRequester.getDate(),category);
         // Enregistrer l' articile
 
         Article savedArticle = articleRepository.save(article);

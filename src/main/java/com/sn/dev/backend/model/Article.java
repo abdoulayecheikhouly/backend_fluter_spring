@@ -15,12 +15,13 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+    
     private String name;
     private String imageUrl;
     private Date date;
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
     private Boolean available=true;
     public  Article(){}
