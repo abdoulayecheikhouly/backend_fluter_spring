@@ -35,13 +35,13 @@ public class SaleServiceImpl implements SaleService{
             if (stock.isEmpty()){
              return   new  MapResponse().withSuccess(false).withMessage(" Produit introuvable").response();
             }else {
-                Integer quantity=sale.getStock().getQuantity();
+                Integer quantity=stock.get().getQuantity();
                 if (sale.getQuantity()>quantity){
                     return new MapResponse().withSuccess(false).withMessage(" quantité non disponible").response();
                 }
                 else{
 
-                    stock.get().setQuantity(stock.get().getQuantity() - quantity);
+                    stock.get().setQuantity(quantity - sale.getQuantity());
                         // Optional<Sale>  savedSale=saleRepository.save(sale);
 
                     Sale savedSale= saleRepository.save(sale);
