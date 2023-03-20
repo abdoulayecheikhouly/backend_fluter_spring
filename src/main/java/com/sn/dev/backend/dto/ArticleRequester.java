@@ -3,7 +3,7 @@ package com.sn.dev.backend.dto;
 import com.sn.dev.backend.model.Category;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Date;
-@Data
+
 public class ArticleRequester {
 
 
@@ -11,11 +11,10 @@ public class ArticleRequester {
     private String name;
     private Date date;
     private Category category;
+    private Long category_id;
     private Boolean available;
     private MultipartFile image;
 
-<<<<<<< Updated upstream
-=======
     public String getName() {
         return name;
     }
@@ -53,5 +52,4 @@ public class ArticleRequester {
         this.category_id = category_id;
     }
 
->>>>>>> Stashed changes
 }

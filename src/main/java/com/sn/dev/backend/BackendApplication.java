@@ -22,9 +22,6 @@ public class BackendApplication extends SpringBootServletInitializer{
 		factory.setMaxRequestSize(DataSize.ofBytes(12000028));
 		return factory.createMultipartConfig();
 	}
-	@Autowired
-	private RepositoryRestConfiguration repositoryRestConfiguration;
-
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}

@@ -15,10 +15,6 @@ public class StockServiceImp implements StockService{
     private StockRepository stockRepository;
     @Override
     public Map<String,Object> saveStock(Stock stock) {
-<<<<<<< Updated upstream
-        Stock s =stockRepository.save(stock);
-        if(s==null){
-=======
         Stock savedStock = new Stock();
        List<Stock> stocks= stockRepository.findByArticle_id(stock.getArticle().getId());
     Optional<Stock> existantStock = stocks.stream().filter(stockItem ->stockItem.getArticle().getId().equals(stock.getArticle().getId())
@@ -31,7 +27,6 @@ public class StockServiceImp implements StockService{
         else {
             savedStock = stockRepository.save(stock);}
         if(savedStock==null){
->>>>>>> Stashed changes
             return new MapResponse().withSuccess(false).withMessage("Stock non sauvegardé").response();
         }
         else return new MapResponse().withSuccess(true).withMessage("Stock savegaedé avec succes").response();
