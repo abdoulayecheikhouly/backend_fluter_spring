@@ -2,7 +2,6 @@ package com.sn.dev.backend.service;
 
 import com.sn.dev.backend.model.ProductSize;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 @Repository

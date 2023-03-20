@@ -12,7 +12,12 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
+<<<<<<< Updated upstream
 
+=======
+    @OneToMany(mappedBy = "stock")
+    List<Sale> sale;
+>>>>>>> Stashed changes
     @ManyToOne
     @JoinColumn(name = "article_id")
     private Article article;

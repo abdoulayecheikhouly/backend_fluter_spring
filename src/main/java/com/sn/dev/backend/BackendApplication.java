@@ -1,7 +1,5 @@
 package com.sn.dev.backend;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -11,8 +9,11 @@ import org.springframework.util.unit.DataSize;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+
 @SpringBootApplication
-public class BackendApplication  implements CommandLineRunner {
+public class BackendApplication extends SpringBootServletInitializer{
 
 	@Bean
 	public MultipartConfigElement multipartConfigElement() {
@@ -29,7 +30,7 @@ public class BackendApplication  implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
-
-	}
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+            return application.sources(BackendApplication.class); // Replace DemoApplication with your main class
+    }
 }

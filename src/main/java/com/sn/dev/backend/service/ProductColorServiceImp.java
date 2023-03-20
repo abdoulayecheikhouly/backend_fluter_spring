@@ -1,7 +1,6 @@
 package com.sn.dev.backend.service;
 
 import com.sn.dev.backend.model.ProductColor;
-import com.sn.dev.backend.model.ProductSize;
 import com.sn.dev.backend.repository.ProductColorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

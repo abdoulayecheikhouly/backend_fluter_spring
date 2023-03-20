@@ -2,9 +2,7 @@ package com.sn.dev.backend.controller;
 
 
 import com.sn.dev.backend.model.ProductColor;
-import com.sn.dev.backend.model.ProductSize;
 import com.sn.dev.backend.service.ProductColorService;
-import com.sn.dev.backend.service.ProductSizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

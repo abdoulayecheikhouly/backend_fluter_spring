@@ -1,11 +1,9 @@
 package com.sn.dev.backend.service;
 
-
 import com.sn.dev.backend.config.AppConfig;
 import com.sn.dev.backend.exception.FileStorageException;
 import com.sn.dev.backend.exception.MyFileNotFoundException;
 import com.sun.istack.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,7 +20,8 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileStorageService {
     private final Path fileStorageLocation;
-    @Autowired
+
+    
     public FileStorageService(AppConfig appConfig) {
         this.fileStorageLocation = Paths.get(appConfig.getUploadDir()).toAbsolutePath().normalize();
         try {

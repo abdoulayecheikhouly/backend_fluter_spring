@@ -1,6 +1,5 @@
 package com.sn.dev.backend.service;
 
-import com.sn.dev.backend.model.ProductSize;
 import com.sn.dev.backend.model.Stock;
 
 import java.util.List;
@@ -14,5 +13,6 @@ public interface StockService {
     void deletedStockId(Long id);
     Map<String,Object> gellAllStock();
     Map<String,Object>  getStockById(Long id);
+    Map<String,Object>  getStockByArticleId(Long id);
 
 }

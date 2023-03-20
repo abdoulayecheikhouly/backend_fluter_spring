@@ -1,14 +1,13 @@
 package com.sn.dev.backend.service;
 
 import com.sn.dev.backend.dto.ArticleRequester;
-import com.sn.dev.backend.exception.ArticleNotFoundException;
 import com.sn.dev.backend.model.Article;
 import com.sn.dev.backend.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ArticleServiceImp implements ArticleService {
@@ -78,8 +77,8 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public void deleteArticle(Long id) {
-        Article article=articleRepository.findById(id).get();
-        if(article==null && article.getId()==0){
+        Optional<Article> article=articleRepository.findById(id);
+        if(article.isEmpty()){
              new MapResponse().withSuccess(false).withMessage("Impossible de trouver l'article").response();
         }
         articleRepository.deleteById(id);

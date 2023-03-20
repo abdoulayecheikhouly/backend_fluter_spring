@@ -1,7 +1,6 @@
 package com.sn.dev.backend.service;
 
 import com.sn.dev.backend.model.Category;
-import com.sn.dev.backend.model.ProductSize;
 
 import java.util.List;
 
