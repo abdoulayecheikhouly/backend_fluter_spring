@@ -67,8 +67,9 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public Map<String,Object> updateArticle(Article updatedArticle) {
-        Optional<Article> article= articleRepository.findById(updatedArticle.getId());;
-        if (article.isEmpty()){
+               // Optional<Article> article= articleRepository.findById(updatedArticle.getId());;
+        //if (article.isEmpty())
+        if (!articleRepository.existsById(updatedArticle.getId())){
             return new MapResponse().withSuccess(false).withMessage("Article non trouvé").response();
         }else{
         updatedArticle.setName(updatedArticle.getName());
